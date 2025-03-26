@@ -29,7 +29,7 @@ export default function Header() {
             <div className={`px-3 py-2 rounded text-sm transition-colors cursor-pointer ${isActive('/dashboard')}`} onClick={() => window.location.href = '/dashboard'}>
               පුවරුව
             </div>
-            <div className={`px-3 py-2 rounded text-sm transition-colors cursor-pointer ${isActive('/')}`} onClick={() => window.location.href = '/'}>
+            <div className={`px-3 py-2 rounded text-sm transition-colors cursor-pointer ${isActive('/leave-management')}`} onClick={() => window.location.href = '/leave-management'}>
               නිවාඩු කළමනාකරණය
             </div>
             <div className={`px-3 py-2 rounded text-sm transition-colors cursor-pointer ${isActive('/teacher-management')}`} onClick={() => window.location.href = '/teacher-management'}>

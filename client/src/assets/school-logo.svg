@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <title>School Logo</title>
+    <g id="School-Logo" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <!-- Book Base -->
+        <path d="M40,60 L160,60 C165.523,60 170,64.4771525 170,70 L170,150 C170,155.522847 165.523,160 160,160 L40,160 C34.4771525,160 30,155.522847 30,150 L30,70 C30,64.4771525 34.4771525,60 40,60 Z" id="Book" fill="#6D28D9" fill-rule="nonzero"></path>
+        
+        <!-- Book Pages -->
+        <path d="M35,65 L165,65 L165,145 C165,150.522847 160.523,155 155,155 L45,155 C39.4771525,155 35,150.522847 35,145 L35,65 Z" id="Pages" fill="#F3F4F6"></path>
+        
+        <!-- Bookmark -->
+        <path d="M90,65 L110,65 L110,80 L100,75 L90,80 L90,65 Z" id="Bookmark" fill="#EF4444"></path>
+        
+        <!-- School Building -->
+        <path d="M70,85 L130,85 L130,130 L70,130 L70,85 Z" id="Building-Base" fill="#F59E0B"></path>
+        
+        <!-- Roof -->
+        <path d="M60,85 L140,85 L100,55 L60,85 Z" id="Roof" fill="#7C3AED"></path>
+        
+        <!-- Door -->
+        <path d="M90,110 L110,110 L110,130 L90,130 L90,110 Z" id="Door" fill="#4B5563"></path>
+        
+        <!-- Windows -->
+        <rect id="Window-1" fill="#60A5FA" x="75" y="95" width="15" height="15" rx="2"></rect>
+        <rect id="Window-2" fill="#60A5FA" x="110" y="95" width="15" height="15" rx="2"></rect>
+        
+        <!-- Text "SCHOOL" Banner -->
+        <rect id="Banner" fill="#1E40AF" x="55" y="140" width="90" height="20" rx="4"></rect>
+        <text id="SCHOOL" font-family="Arial-BoldMT, Arial" font-size="12" font-weight="bold" fill="#FFFFFF">
+            <tspan x="77" y="155">SCHOOL</tspan>
+        </text>
+        
+        <!-- Decorative Elements -->
+        <circle id="Sun" fill="#FBBF24" cx="160" cy="40" r="15"></circle>
+        <path d="M160,25 L160,20 M175,40 L180,40 M160,55 L160,60 M145,40 L140,40" id="Sun-Rays" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"></path>
+        
+        <!-- Flag on top -->
+        <line x1="100" y1="55" x2="100" y2="40" id="Flag-Pole" stroke="#374151" stroke-width="2"></line>
+        <path d="M100,40 L115,45 L100,50 L100,40 Z" id="Flag" fill="#EF4444"></path>
+    </g>
+</svg>
