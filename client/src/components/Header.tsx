@@ -26,6 +26,9 @@ export default function Header() {
 
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2">
           <nav className="flex md:items-center space-x-1">
+            <div className={`px-3 py-2 rounded text-sm transition-colors cursor-pointer ${isActive('/dashboard')}`} onClick={() => window.location.href = '/dashboard'}>
+              පුවරුව
+            </div>
             <div className={`px-3 py-2 rounded text-sm transition-colors cursor-pointer ${isActive('/')}`} onClick={() => window.location.href = '/'}>
               නිවාඩු කළමනාකරණය
             </div>
