@@ -103,7 +103,7 @@ export default function TeacherManagement() {
         <Card className="mb-6">
           <CardHeader className="pb-2">
             <div className="flex justify-between items-center">
-              <CardTitle>Teacher Management</CardTitle>
+              <CardTitle>ගුරු කළමනාකරණය</CardTitle>
               <div className="flex gap-2">
                 <Button 
                   variant="outline" 
@@ -112,7 +112,7 @@ export default function TeacherManagement() {
                   disabled={isLoading}
                 >
                   <RefreshCw className="mr-2 h-4 w-4" />
-                  Refresh
+                  යාවත්කාලීන කරන්න
                 </Button>
                 <Button 
                   size="sm" 
@@ -120,7 +120,7 @@ export default function TeacherManagement() {
                   disabled={isAddingTeacher}
                 >
                   <UserPlus className="mr-2 h-4 w-4" />
-                  Add Teacher
+                  ගුරුවරයෙකු එකතු කරන්න
                 </Button>
               </div>
             </div>
