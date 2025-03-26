@@ -127,8 +127,8 @@ export default function TeacherManagement() {
           </CardHeader>
           <CardContent className="pt-2">
             <TabsList>
-              <TabsTrigger value="all-teachers">All Teachers</TabsTrigger>
-              <TabsTrigger value="departments">By Department</TabsTrigger>
+              <TabsTrigger value="all-teachers">සියලුම ගුරුවරුන්</TabsTrigger>
+              <TabsTrigger value="departments">දෙපාර්තමේන්තු අනුව</TabsTrigger>
             </TabsList>
           </CardContent>
         </Card>
@@ -142,7 +142,7 @@ export default function TeacherManagement() {
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                       <Input 
-                        placeholder="Search teachers by name or ID..." 
+                        placeholder="නම හෝ අංකය අනුව ගුරුවරුන් සොයන්න..." 
                         className="pl-10"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
@@ -154,17 +154,17 @@ export default function TeacherManagement() {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Teacher ID</TableHead>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Department</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
+                          <TableHead>ගුරු අංකය</TableHead>
+                          <TableHead>නම</TableHead>
+                          <TableHead>දෙපාර්තමේන්තුව</TableHead>
+                          <TableHead className="text-right">ක්‍රියාමාර්ග</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
                         {isLoading ? (
                           <TableRow>
                             <TableCell colSpan={4} className="text-center py-10">
-                              Loading teachers...
+                              ගුරුවරුන් පූරණය වෙමින්...
                             </TableCell>
                           </TableRow>
                         ) : filteredTeachers.length > 0 ? (
@@ -179,7 +179,7 @@ export default function TeacherManagement() {
                                   className="h-auto p-0"
                                   onClick={() => viewTeacherDetails(teacher.id)}
                                 >
-                                  View leave details
+                                  නිවාඩු විස්තර බලන්න
                                 </Button>
                               </TableCell>
                             </TableRow>
@@ -187,7 +187,7 @@ export default function TeacherManagement() {
                         ) : (
                           <TableRow>
                             <TableCell colSpan={4} className="text-center py-10">
-                              No teachers found. Add your first teacher to get started.
+                              ගුරුවරුන් හමු නොවීය. ආරම්භ කිරීමට ඔබගේ පළමු ගුරුවරයා එකතු කරන්න.
                             </TableCell>
                           </TableRow>
                         )}
@@ -197,7 +197,7 @@ export default function TeacherManagement() {
                 </div>
               ) : (
                 <div className="p-6">
-                  <h3 className="text-lg font-medium mb-4">Add New Teacher</h3>
+                  <h3 className="text-lg font-medium mb-4">නව ගුරුවරයෙකු එකතු කරන්න</h3>
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                       <FormField
@@ -205,9 +205,9 @@ export default function TeacherManagement() {
                         name="teacherId"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Teacher ID</FormLabel>
+                            <FormLabel>ගුරු අංකය</FormLabel>
                             <FormControl>
-                              <Input placeholder="Enter teacher ID (e.g., TCH-2023-001)" {...field} />
+                              <Input placeholder="ගුරු අංකය ඇතුලත් කරන්න (උදා: TCH-2023-001)" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -219,9 +219,9 @@ export default function TeacherManagement() {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Full Name</FormLabel>
+                            <FormLabel>සම්පූර්ණ නම</FormLabel>
                             <FormControl>
-                              <Input placeholder="Enter teacher's full name" {...field} />
+                              <Input placeholder="ගුරුවරයාගේ සම්පූර්ණ නම ඇතුලත් කරන්න" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -233,9 +233,9 @@ export default function TeacherManagement() {
                         name="department"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Department</FormLabel>
+                            <FormLabel>දෙපාර්තමේන්තුව</FormLabel>
                             <FormControl>
-                              <Input placeholder="Enter department" {...field} />
+                              <Input placeholder="දෙපාර්තමේන්තුව ඇතුලත් කරන්න" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -249,10 +249,10 @@ export default function TeacherManagement() {
                           onClick={() => setIsAddingTeacher(false)}
                           disabled={isPending}
                         >
-                          Cancel
+                          අවලංගු කරන්න
                         </Button>
                         <Button type="submit" disabled={isPending}>
-                          {isPending ? "Adding..." : "Add Teacher"}
+                          {isPending ? "එකතු කරමින්..." : "ගුරුවරයා එකතු කරන්න"}
                         </Button>
                       </div>
                     </form>
@@ -266,9 +266,9 @@ export default function TeacherManagement() {
         <TabsContent value="departments" className="mt-0">
           <Card>
             <CardContent className="p-6">
-              <h3 className="text-lg font-medium mb-4">Department Summary</h3>
+              <h3 className="text-lg font-medium mb-4">දෙපාර්තමේන්තු සාරාංශය</h3>
               <p className="text-gray-600">
-                This feature will display teachers grouped by department.
+                මෙම විශේෂාංගය දෙපාර්තමේන්තු අනුව වර්ග කරන ලද ගුරුවරුන් පෙන්වනු ඇත.
               </p>
             </CardContent>
           </Card>
