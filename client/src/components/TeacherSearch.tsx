@@ -59,7 +59,7 @@ export default function TeacherSearch({ onSelectTeacher }: TeacherSearchProps) {
 
   return (
     <div className="mb-6">
-      <h2 className="text-xl font-medium mb-4">Search Teacher</h2>
+      <h2 className="text-xl font-medium mb-4">ගුරුවරයා සොයන්න</h2>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSearch)} className="flex flex-col md:flex-row gap-4">
           <div className="flex-grow">
@@ -68,11 +68,11 @@ export default function TeacherSearch({ onSelectTeacher }: TeacherSearchProps) {
               name="query"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Teacher Name or ID</FormLabel>
+                  <FormLabel>ගුරු නම හෝ අංකය</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input 
-                        placeholder="Enter teacher name or ID" 
+                        placeholder="ගුරු නම හෝ අංකය ඇතුලත් කරන්න" 
                         {...field} 
                       />
                       <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-neutral-500">
@@ -85,9 +85,9 @@ export default function TeacherSearch({ onSelectTeacher }: TeacherSearchProps) {
             />
           </div>
           <div className="md:w-1/4">
-            <FormLabel className="invisible">Search</FormLabel>
+            <FormLabel className="invisible">සෙවීම</FormLabel>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Searching..." : "Search"}
+              {isLoading ? "සොයමින්..." : "සොයන්න"}
             </Button>
           </div>
         </form>

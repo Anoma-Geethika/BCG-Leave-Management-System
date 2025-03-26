@@ -23,19 +23,19 @@ export default function LeaveManagement() {
               value="leave-management" 
               className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent"
             >
-              Leave Management
+              නිවාඩු කළමනාකරණය
             </TabsTrigger>
             <TabsTrigger 
               value="reports" 
               className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent"
             >
-              Reports
+              වාර්තා
             </TabsTrigger>
             <TabsTrigger 
               value="teacher-management" 
               className="rounded-none border-b-2 border-transparent data-[state=active]:border-primary data-[state=active]:bg-transparent"
             >
-              Teacher Management
+              ගුරු කළමනාකරණය
             </TabsTrigger>
           </TabsList>
         </Card>
@@ -51,18 +51,18 @@ export default function LeaveManagement() {
 
         <TabsContent value="reports">
           <Card className="shadow p-6">
-            <h2 className="text-xl font-medium mb-4">Reports</h2>
+            <h2 className="text-xl font-medium mb-4">වාර්තා</h2>
             <p className="text-gray-600">
-              Reports functionality will be implemented in a future update.
+              වාර්තා ක්‍රියාකාරිත්වය අනාගත යාවත්කාලීන කිරීමකදී ක්‍රියාත්මක කරනු ඇත.
             </p>
           </Card>
         </TabsContent>
 
         <TabsContent value="teacher-management">
           <Card className="shadow p-6">
-            <h2 className="text-xl font-medium mb-4">Teacher Management</h2>
+            <h2 className="text-xl font-medium mb-4">ගුරු කළමනාකරණය</h2>
             <p className="text-gray-600">
-              Teacher management functionality will be implemented in a future update.
+              ගුරු කළමනාකරණ ක්‍රියාකාරිත්වය අනාගත යාවත්කාලීන කිරීමකදී ක්‍රියාත්මක කරනු ඇත.
             </p>
           </Card>
         </TabsContent>
