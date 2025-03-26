@@ -55,9 +55,9 @@ export default function LeaveHistory({ teacher }: LeaveHistoryProps) {
   if (!teacher) {
     return (
       <div className="mb-8">
-        <h2 className="text-xl font-medium mb-4">Leave History</h2>
+        <h2 className="text-xl font-medium mb-4">නිවාඩු ඉතිහාසය</h2>
         <div className="p-6 text-center bg-gray-50 rounded-md border border-gray-200">
-          <p className="text-gray-600">Please select a teacher to view leave history.</p>
+          <p className="text-gray-600">නිවාඩු ඉතිහාසය බැලීමට ගුරුවරයෙකු තෝරන්න.</p>
         </div>
       </div>
     );
@@ -66,19 +66,19 @@ export default function LeaveHistory({ teacher }: LeaveHistoryProps) {
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-medium">Leave History</h2>
+        <h2 className="text-xl font-medium">නිවාඩු ඉතිහාසය</h2>
         <div className="flex items-center space-x-2">
-          <label htmlFor="filter-leave-type" className="text-sm text-gray-600">Filter by:</label>
+          <label htmlFor="filter-leave-type" className="text-sm text-gray-600">පෙරහන:</label>
           <Select value={leaveTypeFilter} onValueChange={handleFilterChange}>
             <SelectTrigger id="filter-leave-type" className="w-[130px]">
-              <SelectValue placeholder="All Types" />
+              <SelectValue placeholder="සියලු වර්ග" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="casual">Casual</SelectItem>
-              <SelectItem value="sick">Sick</SelectItem>
-              <SelectItem value="duty">Duty</SelectItem>
-              <SelectItem value="other">Other</SelectItem>
+              <SelectItem value="all">සියලු වර්ග</SelectItem>
+              <SelectItem value="casual">සාමාන්‍ය</SelectItem>
+              <SelectItem value="sick">අසනීප</SelectItem>
+              <SelectItem value="duty">රාජකාරි</SelectItem>
+              <SelectItem value="other">වෙනත්</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -90,13 +90,13 @@ export default function LeaveHistory({ teacher }: LeaveHistoryProps) {
             <table className="w-full">
               <thead>
                 <tr className="bg-gray-50 border-b">
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Date Submitted</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Type</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Period</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Days</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Reason</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">ඉදිරිපත් කළ දිනය</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">වර්ගය</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">කාල සීමාව</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">දින</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">හේතුව</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">තත්ත්වය</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-600 uppercase tracking-wider">ක්‍රියා</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
@@ -119,12 +119,14 @@ export default function LeaveHistory({ teacher }: LeaveHistoryProps) {
                         {format(new Date(leave.submittedAt), "yyyy-MM-dd")}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {leave.leaveType.charAt(0).toUpperCase() + leave.leaveType.slice(1)} Leave
+                        {leave.leaveType === 'casual' ? 'සාමාන්‍ය' : 
+                         leave.leaveType === 'sick' ? 'අසනීප' : 
+                         leave.leaveType === 'duty' ? 'රාජකාරි' : 'වෙනත්'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                         <div>{format(new Date(leave.startDate), "MMM dd, yyyy")}</div>
                         <div className="text-xs text-gray-500">
-                          to {format(new Date(leave.endDate), "MMM dd, yyyy")}
+                          සිට {format(new Date(leave.endDate), "MMM dd, yyyy")}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{leave.days}</td>

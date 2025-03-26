@@ -39,11 +39,11 @@ export default function TeacherInfo({ teacher }: TeacherInfoProps) {
         <div className="flex flex-col md:flex-row justify-between">
           <div>
             <h3 className="text-lg font-medium">{teacher.name}</h3>
-            <p className="text-gray-600">ID: {teacher.teacherId}</p>
-            <p className="text-gray-600">Department: {teacher.department}</p>
+            <p className="text-gray-600">අංකය: {teacher.teacherId}</p>
+            <p className="text-gray-600">අංශය: {teacher.department}</p>
           </div>
           <div className="mt-3 md:mt-0">
-            <h4 className="text-sm font-medium text-gray-700">Leave Summary</h4>
+            <h4 className="text-sm font-medium text-gray-700">නිවාඩු සාරාංශය</h4>
             {isLoading ? (
               <div className="flex gap-4 mt-1">
                 <Skeleton className="h-10 w-20" />
@@ -53,24 +53,24 @@ export default function TeacherInfo({ teacher }: TeacherInfoProps) {
             ) : leaveUsage ? (
               <div className="flex gap-4 mt-1">
                 <div>
-                  <span className="text-xs text-gray-600">Casual</span>
-                  <p className="font-medium">{leaveUsage.casualUsed}/{leaveLimits.casual} days</p>
+                  <span className="text-xs text-gray-600">සාමාන්‍ය</span>
+                  <p className="font-medium">{leaveUsage.casualUsed}/{leaveLimits.casual} දින</p>
                 </div>
                 <div>
-                  <span className="text-xs text-gray-600">Sick</span>
-                  <p className="font-medium">{leaveUsage.sickUsed}/{leaveLimits.sick} days</p>
+                  <span className="text-xs text-gray-600">අසනීප</span>
+                  <p className="font-medium">{leaveUsage.sickUsed}/{leaveLimits.sick} දින</p>
                 </div>
                 <div>
-                  <span className="text-xs text-gray-600">Duty</span>
-                  <p className="font-medium">{leaveUsage.dutyUsed}/{leaveLimits.duty} days</p>
+                  <span className="text-xs text-gray-600">රාජකාරි</span>
+                  <p className="font-medium">{leaveUsage.dutyUsed}/{leaveLimits.duty} දින</p>
                 </div>
                 <div>
-                  <span className="text-xs text-gray-600">Other</span>
-                  <p className="font-medium">{leaveUsage.otherUsed}/{leaveLimits.other} days</p>
+                  <span className="text-xs text-gray-600">වෙනත්</span>
+                  <p className="font-medium">{leaveUsage.otherUsed}/{leaveLimits.other} දින</p>
                 </div>
               </div>
             ) : (
-              <p className="text-sm text-gray-500 mt-1">No leave data available</p>
+              <p className="text-sm text-gray-500 mt-1">නිවාඩු දත්ත නොමැත</p>
             )}
           </div>
         </div>

@@ -112,9 +112,9 @@ export default function LeaveForm({ teacher }: LeaveFormProps) {
   if (!teacher) {
     return (
       <div className="mb-8">
-        <h2 className="text-xl font-medium mb-4">Leave Request Form</h2>
+        <h2 className="text-xl font-medium mb-4">නිවාඩු ඉල්ලුම් පත්‍රය</h2>
         <div className="p-6 text-center bg-gray-50 rounded-md border border-gray-200">
-          <p className="text-gray-600">Please select a teacher to submit a leave request.</p>
+          <p className="text-gray-600">නිවාඩු ඉල්ලුම් කිරීමට ගුරුවරයෙකු තෝරන්න.</p>
         </div>
       </div>
     );
@@ -123,7 +123,7 @@ export default function LeaveForm({ teacher }: LeaveFormProps) {
   return (
     <div className="mb-8">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-medium">Leave Request Form</h2>
+        <h2 className="text-xl font-medium">නිවාඩු ඉල්ලුම් පත්‍රය</h2>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -133,21 +133,21 @@ export default function LeaveForm({ teacher }: LeaveFormProps) {
               name="leaveType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Leave Type</FormLabel>
+                  <FormLabel>නිවාඩු වර්ගය</FormLabel>
                   <Select 
                     onValueChange={field.onChange} 
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select leave type" />
+                        <SelectValue placeholder="නිවාඩු වර්ගය තෝරන්න" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value={leaveTypes.CASUAL}>Casual Leave</SelectItem>
-                      <SelectItem value={leaveTypes.SICK}>Sick Leave</SelectItem>
-                      <SelectItem value={leaveTypes.DUTY}>Duty Leave</SelectItem>
-                      <SelectItem value={leaveTypes.OTHER}>Other</SelectItem>
+                      <SelectItem value={leaveTypes.CASUAL}>සාමාන්‍ය නිවාඩු</SelectItem>
+                      <SelectItem value={leaveTypes.SICK}>අසනීප නිවාඩු</SelectItem>
+                      <SelectItem value={leaveTypes.DUTY}>රාජකාරි නිවාඩු</SelectItem>
+                      <SelectItem value={leaveTypes.OTHER}>වෙනත් නිවාඩු</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -156,7 +156,7 @@ export default function LeaveForm({ teacher }: LeaveFormProps) {
             />
 
             <FormItem>
-              <FormLabel>Leave Dates</FormLabel>
+              <FormLabel>නිවාඩු දින</FormLabel>
               <DateRangePicker 
                 dateRange={dateRange} 
                 onDateRangeChange={handleDateRangeChange}
@@ -169,7 +169,7 @@ export default function LeaveForm({ teacher }: LeaveFormProps) {
               name="days"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Number of Days</FormLabel>
+                  <FormLabel>දින ගණන</FormLabel>
                   <FormControl>
                     <Input 
                       type="number" 
@@ -189,10 +189,10 @@ export default function LeaveForm({ teacher }: LeaveFormProps) {
             name="reason"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Reason for Leave</FormLabel>
+                <FormLabel>නිවාඩු ඉල්ලුම් කිරීමේ හේතුව</FormLabel>
                 <FormControl>
                   <Textarea 
-                    placeholder="Provide reason for leave request" 
+                    placeholder="නිවාඩු ඉල්ලුම් කිරීමේ හේතුව සඳහන් කරන්න" 
                     rows={3} 
                     {...field}
                   />
@@ -209,13 +209,13 @@ export default function LeaveForm({ teacher }: LeaveFormProps) {
               onClick={resetForm}
               disabled={isPending}
             >
-              Cancel
+              අවලංගු කරන්න
             </Button>
             <Button 
               type="submit" 
               disabled={isPending}
             >
-              {isPending ? "Submitting..." : "Submit Leave Request"}
+              {isPending ? "ඉදිරිපත් කරමින්..." : "නිවාඩු ඉල්ලුම ඉදිරිපත් කරන්න"}
             </Button>
           </div>
         </form>

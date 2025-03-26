@@ -96,7 +96,7 @@ export default function TeacherSearch({ onSelectTeacher }: TeacherSearchProps) {
       {/* Search Results */}
       {teachers && teachers.length > 0 && (
         <div className="mt-4 p-2 border rounded-md">
-          <h3 className="text-sm font-medium mb-2">Search Results</h3>
+          <h3 className="text-sm font-medium mb-2">සෙවුම් ප්‍රතිඵල</h3>
           <ul className="space-y-1">
             {teachers.map((teacher: Teacher) => (
               <li 
@@ -105,7 +105,7 @@ export default function TeacherSearch({ onSelectTeacher }: TeacherSearchProps) {
                 onClick={() => handleSelectTeacher(teacher)}
               >
                 <span>{teacher.name} ({teacher.teacherId})</span>
-                <span className="text-primary text-sm">Select</span>
+                <span className="text-primary text-sm">තෝරන්න</span>
               </li>
             ))}
           </ul>
@@ -114,7 +114,7 @@ export default function TeacherSearch({ onSelectTeacher }: TeacherSearchProps) {
 
       {searchQuery && teachers && teachers.length === 0 && (
         <div className="mt-4 p-4 bg-gray-50 rounded text-center">
-          No teachers found matching "{searchQuery}"
+          "{searchQuery}" සමඟ ගැලපෙන ගුරුවරුන් කිසිවෙක් හමු නොවීය
         </div>
       )}
     </div>
