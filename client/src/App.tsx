@@ -15,11 +15,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/login" component={Login} />
-      <Route path="/" component={() => {
-        // Redirect to login page initially
-        window.location.href = "/login";
-        return null;
-      }} />
+      <Route path="/" component={Dashboard} />
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/reports" component={Reports} />
       <Route path="/teacher-management" component={TeacherManagement} />
