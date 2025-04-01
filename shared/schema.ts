@@ -8,6 +8,8 @@ export const teachers = pgTable("teachers", {
   teacherId: text("teacher_id").notNull().unique(),
   name: text("name").notNull(),
   department: text("department").notNull(),
+  position: text("position").notNull(),
+  appointmentDate: date("appointment_date").notNull(),
 });
 
 export const insertTeacherSchema = createInsertSchema(teachers).pick({

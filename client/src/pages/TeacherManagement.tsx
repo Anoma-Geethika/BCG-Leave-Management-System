@@ -50,7 +50,9 @@ export default function TeacherManagement() {
     defaultValues: {
       teacherId: "",
       name: "",
-      department: ""
+      department: "",
+      position: "",
+      appointmentDate: new Date()
     }
   });
 
@@ -236,6 +238,34 @@ export default function TeacherManagement() {
                             <FormLabel>දෙපාර්තමේන්තුව</FormLabel>
                             <FormControl>
                               <Input placeholder="දෙපාර්තමේන්තුව ඇතුලත් කරන්න" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="position"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>තනතුර</FormLabel>
+                            <FormControl>
+                              <Input placeholder="තනතුර ඇතුලත් කරන්න" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="appointmentDate"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>පත්වීම් දිනය</FormLabel>
+                            <FormControl>
+                              <Input type="date" {...field} value={field.value?.split('T')[0]} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
