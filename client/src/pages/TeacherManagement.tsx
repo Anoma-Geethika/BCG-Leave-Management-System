@@ -52,7 +52,7 @@ export default function TeacherManagement() {
       name: "",
       department: "",
       position: "",
-      appointmentDate: new Date()
+      appointmentDate: new Date().toISOString().split('T')[0]
     }
   });
 
@@ -265,7 +265,7 @@ export default function TeacherManagement() {
                           <FormItem>
                             <FormLabel>පත්වීම් දිනය</FormLabel>
                             <FormControl>
-                              <Input type="date" {...field} value={field.value?.split('T')[0]} />
+                              <Input type="date" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
