@@ -47,29 +47,7 @@ export class MemStorage implements IStorage {
   }
 
   private initializeData() {
-    // Add sample teachers
-    const teacher1 = this.createTeacher({
-      teacherId: "TCH-2023-001",
-      name: "Sarah Johnson",
-      department: "Mathematics"
-    });
-
-    const teacher2 = this.createTeacher({
-      teacherId: "TCH-2023-002",
-      name: "Michael Brown",
-      department: "Science"
-    });
-
-    // Initialize their leave usage
-    this.createOrUpdateLeaveUsage(teacher1.id, leaveTypes.CASUAL, 0);
-    this.createOrUpdateLeaveUsage(teacher1.id, leaveTypes.SICK, 0);
-    this.createOrUpdateLeaveUsage(teacher1.id, leaveTypes.DUTY, 0);
-    this.createOrUpdateLeaveUsage(teacher1.id, leaveTypes.OTHER, 0);
-
-    this.createOrUpdateLeaveUsage(teacher2.id, leaveTypes.CASUAL, 0);
-    this.createOrUpdateLeaveUsage(teacher2.id, leaveTypes.SICK, 0);
-    this.createOrUpdateLeaveUsage(teacher2.id, leaveTypes.DUTY, 0);
-    this.createOrUpdateLeaveUsage(teacher2.id, leaveTypes.OTHER, 0);
+    // Initialize with no sample data
   }
 
   // Teacher operations
