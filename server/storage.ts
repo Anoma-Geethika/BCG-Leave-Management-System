@@ -12,6 +12,8 @@ export interface IStorage {
   getTeacherByTeacherId(teacherId: string): Promise<Teacher | undefined>;
   searchTeachers(query: string): Promise<Teacher[]>;
   createTeacher(teacher: InsertTeacher): Promise<Teacher>;
+  deleteTeacher(id: number): Promise<void>;
+  updateTeacher(id: number, data: InsertTeacher): Promise<Teacher>;
 
   // Leave operations
   getLeaves(): Promise<Leave[]>;
@@ -68,8 +70,8 @@ export class MemStorage implements IStorage {
   async searchTeachers(query: string): Promise<Teacher[]> {
     const lowerQuery = query.toLowerCase();
     return Array.from(this.teachers.values()).filter(
-      (teacher) => 
-        teacher.name.toLowerCase().includes(lowerQuery) || 
+      (teacher) =>
+        teacher.name.toLowerCase().includes(lowerQuery) ||
         teacher.teacherId.toLowerCase().includes(lowerQuery)
     );
   }
@@ -80,6 +82,19 @@ export class MemStorage implements IStorage {
     this.teachers.set(id, newTeacher);
     return newTeacher;
   }
+
+  async deleteTeacher(id: number): Promise<void> {
+    this.teachers.delete(id);
+  }
+
+  async updateTeacher(id: number, data: InsertTeacher): Promise<Teacher> {
+    const existingTeacher = this.teachers.get(id);
+    if (!existingTeacher) throw new Error("Teacher not found");
+    const updatedTeacher = {...existingTeacher, ...data};
+    this.teachers.set(id, updatedTeacher);
+    return updatedTeacher;
+  }
+
 
   // Leave operations
   async getLeaves(): Promise<Leave[]> {

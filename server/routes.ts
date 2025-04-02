@@ -74,6 +74,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.delete("/api/teachers/:id", async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid teacher ID" });
+      }
+      await storage.deleteTeacher(id);
+      return res.status(200).json({ message: "Teacher deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting teacher:", error);
+      return res.status(500).json({ message: "Failed to delete teacher" });
+    }
+  });
+
+  app.put("/api/teachers/:id", async (req: Request, res: Response) => {
+    try {
+      const id = Number(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ message: "Invalid teacher ID" });
+      }
+      const teacherData = insertTeacherSchema.parse(req.body);
+      const updatedTeacher = await storage.updateTeacher(id, teacherData);
+      return res.status(200).json(updatedTeacher);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        const validationError = fromZodError(error);
+        return res.status(400).json({ message: validationError.message });
+      }
+      console.error("Error updating teacher:", error);
+      return res.status(500).json({ message: "Failed to update teacher" });
+    }
+  });
+
   // Leave routes
   app.get("/api/leaves", async (_req: Request, res: Response) => {
     try {

@@ -176,13 +176,52 @@ export default function TeacherManagement() {
                               <TableCell className="font-medium">{teacher.name}</TableCell>
                               <TableCell>{teacher.department}</TableCell>
                               <TableCell className="text-right">
-                                <Button 
-                                  variant="link" 
-                                  className="h-auto p-0"
-                                  onClick={() => viewTeacherDetails(teacher.id)}
-                                >
-                                  නිවාඩු විස්තර බලන්න
-                                </Button>
+                                <div className="flex justify-end gap-2">
+                                  <Button 
+                                    variant="link" 
+                                    className="h-auto p-0"
+                                    onClick={() => viewTeacherDetails(teacher.id)}
+                                  >
+                                    නිවාඩු විස්තර බලන්න
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    onClick={() => {
+                                      form.reset(teacher);
+                                      setIsAddingTeacher(true);
+                                    }}
+                                  >
+                                    සංස්කරණය
+                                  </Button>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-red-600 hover:text-red-800"
+                                    onClick={async () => {
+                                      if (confirm("ඔබට මෙම ගුරුවරයා ඉවත් කිරීමට අවශ්‍ය බව විශ්වාසද?")) {
+                                        try {
+                                          await fetch(`/api/teachers/${teacher.id}`, {
+                                            method: 'DELETE'
+                                          });
+                                          refetch();
+                                          toast({
+                                            title: "ගුරුවරයා ඉවත් කරන ලදී",
+                                            description: "ගුරුවරයා සාර්ථකව ඉවත් කරන ලදී."
+                                          });
+                                        } catch (error) {
+                                          toast({
+                                            title: "දෝෂයකි",
+                                            description: "ගුරුවරයා ඉවත් කිරීමට නොහැකි විය.",
+                                            variant: "destructive"
+                                          });
+                                        }
+                                      }
+                                    }}
+                                  >
+                                    ඉවත් කරන්න
+                                  </Button>
+                                </div>
                               </TableCell>
                             </TableRow>
                           ))
