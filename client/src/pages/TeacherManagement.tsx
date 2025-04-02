@@ -29,6 +29,8 @@ import { Teacher, insertTeacherSchema } from "@shared/schema";
 export default function TeacherManagement() {
   const [isAddingTeacher, setIsAddingTeacher] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+  const [editingTeacherId, setEditingTeacherId] = useState<number | null>(null);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   
@@ -44,7 +46,7 @@ export default function TeacherManagement() {
     }
   });
 
-  // Form for adding new teachers
+  // Form for adding/editing teachers
   const form = useForm({
     resolver: zodResolver(insertTeacherSchema),
     defaultValues: {
@@ -57,7 +59,7 @@ export default function TeacherManagement() {
   });
 
   // Add teacher mutation
-  const { mutate: addTeacher, isPending } = useMutation({
+  const { mutate: addTeacher, isPending: isAddPending } = useMutation({
     mutationFn: async (data: any) => {
       return apiRequest("POST", "/api/teachers", data);
     },
@@ -80,8 +82,80 @@ export default function TeacherManagement() {
     }
   });
 
+  // Update teacher mutation
+  const { mutate: updateTeacher, isPending: isUpdatePending } = useMutation({
+    mutationFn: async ({ id, data }: { id: number, data: any }) => {
+      return apiRequest("PUT", `/api/teachers/${id}`, data);
+    },
+    onSuccess: () => {
+      toast({
+        title: "Teacher Updated",
+        description: "The teacher has been updated successfully."
+      });
+      // Reset form and refetch teachers
+      form.reset();
+      setIsAddingTeacher(false);
+      setIsEditing(false);
+      setEditingTeacherId(null);
+      queryClient.invalidateQueries({ queryKey: ['/api/teachers'] });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to update teacher",
+        variant: "destructive"
+      });
+    }
+  });
+
+  // Delete teacher mutation
+  const { mutate: deleteTeacher, isPending: isDeletePending } = useMutation({
+    mutationFn: async (id: number) => {
+      return apiRequest("DELETE", `/api/teachers/${id}`);
+    },
+    onSuccess: () => {
+      toast({
+        title: "ගුරුවරයා ඉවත් කරන ලදී",
+        description: "ගුරුවරයා සාර්ථකව ඉවත් කරන ලදී."
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/teachers'] });
+    },
+    onError: (error) => {
+      toast({
+        title: "දෝෂයකි",
+        description: "ගුරුවරයා ඉවත් කිරීමට නොහැකි විය.",
+        variant: "destructive"
+      });
+    }
+  });
+
   const onSubmit = (data: any) => {
-    addTeacher(data);
+    if (isEditing && editingTeacherId) {
+      updateTeacher({ id: editingTeacherId, data });
+    } else {
+      addTeacher(data);
+    }
+  };
+  
+  const handleEdit = (teacher: Teacher) => {
+    // Set form values for editing
+    form.reset({
+      teacherId: teacher.teacherId,
+      name: teacher.name,
+      department: teacher.department,
+      position: teacher.position,
+      appointmentDate: teacher.appointmentDate
+    });
+    setEditingTeacherId(teacher.id);
+    setIsEditing(true);
+    setIsAddingTeacher(true);
+  };
+  
+  const handleCancelForm = () => {
+    form.reset();
+    setIsAddingTeacher(false);
+    setIsEditing(false);
+    setEditingTeacherId(null);
   };
   
   // Function to view teacher details (navigates to leave management)
@@ -187,10 +261,7 @@ export default function TeacherManagement() {
                                   <Button
                                     variant="ghost"
                                     size="sm"
-                                    onClick={() => {
-                                      form.reset(teacher);
-                                      setIsAddingTeacher(true);
-                                    }}
+                                    onClick={() => handleEdit(teacher)}
                                   >
                                     සංස්කරණය
                                   </Button>
@@ -198,26 +269,12 @@ export default function TeacherManagement() {
                                     variant="ghost"
                                     size="sm"
                                     className="text-red-600 hover:text-red-800"
-                                    onClick={async () => {
+                                    onClick={() => {
                                       if (confirm("ඔබට මෙම ගුරුවරයා ඉවත් කිරීමට අවශ්‍ය බව විශ්වාසද?")) {
-                                        try {
-                                          await fetch(`/api/teachers/${teacher.id}`, {
-                                            method: 'DELETE'
-                                          });
-                                          refetch();
-                                          toast({
-                                            title: "ගුරුවරයා ඉවත් කරන ලදී",
-                                            description: "ගුරුවරයා සාර්ථකව ඉවත් කරන ලදී."
-                                          });
-                                        } catch (error) {
-                                          toast({
-                                            title: "දෝෂයකි",
-                                            description: "ගුරුවරයා ඉවත් කිරීමට නොහැකි විය.",
-                                            variant: "destructive"
-                                          });
-                                        }
+                                        deleteTeacher(teacher.id);
                                       }
                                     }}
+                                    disabled={isDeletePending}
                                   >
                                     ඉවත් කරන්න
                                   </Button>
@@ -238,7 +295,9 @@ export default function TeacherManagement() {
                 </div>
               ) : (
                 <div className="p-6">
-                  <h3 className="text-lg font-medium mb-4">නව ගුරුවරයෙකු එකතු කරන්න</h3>
+                  <h3 className="text-lg font-medium mb-4">
+                    {isEditing ? "ගුරුවරයා යාවත්කාලීන කරන්න" : "නව ගුරුවරයෙකු එකතු කරන්න"}
+                  </h3>
                   <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                       <FormField
@@ -315,13 +374,15 @@ export default function TeacherManagement() {
                         <Button 
                           type="button" 
                           variant="outline" 
-                          onClick={() => setIsAddingTeacher(false)}
-                          disabled={isPending}
+                          onClick={() => handleCancelForm()}
+                          disabled={isAddPending || isUpdatePending}
                         >
                           අවලංගු කරන්න
                         </Button>
-                        <Button type="submit" disabled={isPending}>
-                          {isPending ? "එකතු කරමින්..." : "ගුරුවරයා එකතු කරන්න"}
+                        <Button type="submit" disabled={isAddPending || isUpdatePending}>
+                          {isEditing 
+                            ? (isUpdatePending ? "යාවත්කාලීන කරමින්..." : "ගුරුවරයා යාවත්කාලීන කරන්න")
+                            : (isAddPending ? "එකතු කරමින්..." : "ගුරුවරයා එකතු කරන්න")}
                         </Button>
                       </div>
                     </form>
