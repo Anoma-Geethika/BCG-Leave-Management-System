@@ -23,6 +23,7 @@ import {
   UserPlus, 
   Search,
   RefreshCw,
+  Users,
 } from "lucide-react";
 import { Teacher, insertTeacherSchema } from "@shared/schema";
 
@@ -129,6 +130,7 @@ export default function TeacherManagement() {
     }
   });
 
+  // Handle form submission - either add or update a teacher
   const onSubmit = (data: any) => {
     if (isEditing && editingTeacherId) {
       updateTeacher({ id: editingTeacherId, data });
@@ -136,6 +138,9 @@ export default function TeacherManagement() {
       addTeacher(data);
     }
   };
+  
+  // Determine if any mutation is pending
+  const isPending = isAddPending || isUpdatePending || isDeletePending;
   
   const handleEdit = (teacher: Teacher) => {
     // Set form values for editing
@@ -375,11 +380,11 @@ export default function TeacherManagement() {
                           type="button" 
                           variant="outline" 
                           onClick={() => handleCancelForm()}
-                          disabled={isAddPending || isUpdatePending}
+                          disabled={isPending}
                         >
                           අවලංගු කරන්න
                         </Button>
-                        <Button type="submit" disabled={isAddPending || isUpdatePending}>
+                        <Button type="submit" disabled={isPending}>
                           {isEditing 
                             ? (isUpdatePending ? "යාවත්කාලීන කරමින්..." : "ගුරුවරයා යාවත්කාලීන කරන්න")
                             : (isAddPending ? "එකතු කරමින්..." : "ගුරුවරයා එකතු කරන්න")}
@@ -397,9 +402,58 @@ export default function TeacherManagement() {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-medium mb-4">දෙපාර්තමේන්තු සාරාංශය</h3>
-              <p className="text-gray-600">
-                මෙම විශේෂාංගය දෙපාර්තමේන්තු අනුව වර්ග කරන ලද ගුරුවරුන් පෙන්වනු ඇත.
-              </p>
+              
+              {isLoading ? (
+                <div className="py-4 text-center">ගුරුවරුන් පූරණය වෙමින්...</div>
+              ) : filteredTeachers.length > 0 ? (
+                <div className="space-y-6">
+                  {/* Group teachers by department */}
+                  {(() => {
+                    // Group teachers by department
+                    const departments: Record<string, Teacher[]> = {};
+                    filteredTeachers.forEach((teacher: Teacher) => {
+                      const dept = teacher.department || "අදාළ නොවේ";
+                      if (!departments[dept]) departments[dept] = [];
+                      departments[dept].push(teacher);
+                    });
+                    
+                    // Render each department
+                    return Object.keys(departments).map(department => {
+                      const deptTeachers = departments[department];
+                      return (
+                        <div key={department} className="border rounded-lg p-4">
+                          <h4 className="text-base font-medium mb-3 flex items-center">
+                            <Users className="mr-2 h-4 w-4" />
+                            {department} <span className="ml-2 text-sm text-muted-foreground">({deptTeachers.length} ගුරුවරුන්)</span>
+                          </h4>
+                          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                            {deptTeachers.map((teacher: Teacher) => (
+                              <div key={teacher.id} className="border rounded p-3 bg-card hover:bg-accent/20 transition-colors">
+                                <div className="font-medium">{teacher.name}</div>
+                                <div className="text-sm text-muted-foreground">{teacher.teacherId}</div>
+                                <div className="text-sm text-muted-foreground">{teacher.position}</div>
+                                <div className="mt-2 pt-2 border-t flex justify-end">
+                                  <Button 
+                                    variant="ghost" 
+                                    size="sm"
+                                    onClick={() => viewTeacherDetails(teacher.id)}
+                                  >
+                                    නිවාඩු විස්තර
+                                  </Button>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      );
+                    });
+                  })()}
+                </div>
+              ) : (
+                <div className="py-8 text-center text-muted-foreground">
+                  ගුරුවරුන් හමු නොවීය. ආරම්භ කිරීමට ඔබගේ පළමු ගුරුවරයා එකතු කරන්න.
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
