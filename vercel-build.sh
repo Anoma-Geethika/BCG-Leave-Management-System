@@ -3,13 +3,8 @@
 # Install dependencies
 npm install
 
-# Build the client
-cd client
+# Build the client and server
 npm run build
 
-# Build the server
-cd ../server
-npm run build
-
-# Return to root directory
-cd ..
+# Make the script executable
+chmod +x vercel-build.sh
